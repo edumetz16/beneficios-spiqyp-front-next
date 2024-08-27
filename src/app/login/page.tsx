@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import PageContent from "../components/PageContent";
 import { isUserAuthenticated } from "@/services/auth/auth.service";
-import SignIn from "../components/signIn/SignIn";
+import SignIn from "../components/signIn/signIn";
 
 
 

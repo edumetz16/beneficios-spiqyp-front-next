@@ -18,13 +18,13 @@ export default function PageContent({
   const handleSignIn = async () => {
     const isOk = await signInWithGoogle();
 
-    if (isOk) router.push("/dashboard");
+    router.push("/dashboard");
   };
 
   const handleSignOut = async () => {
     const isOk = await signOut();
 
-    if (isOk) router.push("/sign-in");
+    router.push("/sign-in");
   };
 
   const buttonStyle = "bg-slate-500 mt-2 px-2 py-1 rounded-md text-slate-50";
