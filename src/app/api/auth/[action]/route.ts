@@ -6,10 +6,10 @@ import { ApiResponse } from "@/shared/types.server";
 import { UserRecord } from "firebase-admin/auth";
 
 export type CreateUserRequest = {
-  name: string,
+  name?: string,
   email: string,
   password: string,
-  role: string,
+  role?: string,
 }
 export interface CreateUserResponse extends ApiResponse {
   data?: UserRecord,
@@ -47,12 +47,21 @@ export async function GET(request: NextRequest,
 }
 
 const Create = async (createUserRequest: CreateUserRequestAdditionalValidation) => {
-  
-  const user = await createUserWithValidation(createUserRequest);
-  if (!user) {
-    throw new Error("Error creating user.", {cause: {code: "auth/user-creation-error"}});
+  try {
+    const user = await createUserWithValidation(createUserRequest);
+    if (!user) {
+      throw new Error("Error creating user.", {cause: {code: "auth/user-creation-error"}});
+    }
+    return user;
+    
+  } catch (error) {
+    if (!(error as any)?.cause?.code) {
+      console.log(error);
+      throw new Error("Error creating user.", {cause: {code: "auth/user-creation-error"}});
+    }
+    throw error;
+    
   }
-  return user;
 }
 
 const Read = () => {

@@ -9,6 +9,11 @@ import { AuthProvider } from "./auth/AuthProvider";
 import { getTokens } from "next-firebase-auth-edge";
 import { authConfig } from "@/config/server.config";
 import { toUser } from "@/shared/user";
+import { TabbedMenu } from "./components/menu/TabbedMenu";
+import {Alert} from "@heroui/alert";
+import { Button } from "@heroui/react";
+import { sendEmailVerification, User } from "firebase/auth";
+import { AppAlert } from "./components/appAlert/AppAlert";
 
 const pjs = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
@@ -34,9 +39,17 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${pjs.className} bg-[#f6f6f3]`}>
+        <AuthProvider user={user}>
+          <AppAlert/>
+        </AuthProvider>
         <AuthProvider user={user}><Menu/></AuthProvider>
-        <AuthProvider user={user}>{children}</AuthProvider>
+        <AuthProvider user={user}>
+          <div className="pt-2 lg:pt-8">
+            {children}
+          </div>
+        </AuthProvider>
         <Footer/>
+        <TabbedMenu/>
       </body>
     </html>
   );

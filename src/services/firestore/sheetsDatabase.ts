@@ -20,6 +20,9 @@ export default class sheetsDatabase {
   getAllUsers() {
     return new Promise(async (resolve, reject)=>{
       try {
+        this.sheetsAPI.spreadsheets.getByDataFilter({
+
+        })
         const response = await this.sheetsAPI.spreadsheets.values.get({
           spreadsheetId: this.spreadsheetId,
           range: "Afiliados!A:Z",
@@ -97,13 +100,20 @@ export default class sheetsDatabase {
         if (response.data.values) {
           const rows = response.data.values;
           for (const user of rows) {
-            if (user[0] === affiliateNumber && user[3] === document) {
+
+            if (user[3] === document) {
               isValid = true;
-              // const age = moment().diff(moment(user[9], "DD/MM/YYYY"), "years");
-              // if (user[6] !== "Hijo/a" || age < 19) {
-                
-              // }
+              break;
             }
+            // Uncomment to validate affiliate number
+            // if (user[0] === affiliateNumber && user[3] === document) {
+            //   isValid = true;
+            //   break;
+            //   // const age = moment().diff(moment(user[9], "DD/MM/YYYY"), "years");
+            //   // if (user[6] !== "Hijo/a" || age < 19) {
+                
+            //   // }
+            // }
           }
           return isValid;
         } else {

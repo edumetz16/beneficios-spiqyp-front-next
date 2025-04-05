@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, UserCredential, createUserWithEmailAndPassword, getAuth, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, UserCredential, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 import { getApps, initializeApp } from "firebase/app";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
@@ -57,7 +57,7 @@ export async function signOut() {
 }
 
 export async function signUpWithEmail(data: any) {
-  const userResponse = await fetch("/api/auth/create", {
+  const userResponse = await fetch("/api/users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -78,12 +78,12 @@ export async function signInWithEmail(email:string,password:string){
     
 const userCreds = await signInWithEmailAndPassword(auth, email, password)
 
-  if (!userCreds.user.emailVerified){
-    throw "auth/email-not-verified";
-  }else{
-    const idToken = await userCreds.user.getIdToken();
-    return await createSession(idToken);
-  }
+  // if (!userCreds.user.emailVerified){
+  //   throw "auth/email-not-verified";
+  // }else{
+  // }
+  const idToken = await userCreds.user.getIdToken();
+  return await createSession(idToken);
   
 }
 
@@ -159,4 +159,8 @@ export async function refreshToken() {
     method: 'GET',
     headers
   });
+}
+
+export async function getCurrentUser() {
+  return auth.currentUser;
 }

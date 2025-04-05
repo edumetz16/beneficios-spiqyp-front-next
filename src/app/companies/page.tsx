@@ -1,6 +1,6 @@
 import { Company, getCompanies } from "@/services/companies/companies"
 import CompanyCard from "../components/companyCard/CompanyCard";
-import { Category, getCategories } from "@/services/categories/categories";
+import { Category, getCategories } from "@/services/banners/categories/categories";
 import CustomFilters from "../components/search/customFilters/customFilters";
 import CustomHits from "../components/search/customHits/customHits";
 import Filters from "../components/search/filters/filters";

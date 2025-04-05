@@ -19,7 +19,7 @@ const {
   serviceAccount
 });
 
-const PUBLIC_PATHS = ['/','/login','/register','/reset-password'];
+const PUBLIC_PATHS = ['/login','/register','/reset-password'];
 const LOGIN_PATHS = ['/login','/register'];
 
 export async function middleware(request: NextRequest) {
@@ -49,13 +49,13 @@ export async function middleware(request: NextRequest) {
         }
       });
     },
-    // handleInvalidToken: async (reason) => {
+    handleInvalidToken: async (reason) => {
 
-    //   return redirectToLogin(request, {
-    //     path: '/login',
-    //     publicPaths: PUBLIC_PATHS
-    //   });
-    // },
+      return redirectToLogin(request, {
+        path: '/login',
+        publicPaths: PUBLIC_PATHS
+      });
+    },
     // handleError: async (error) => {
 
     //   return redirectToLogin(request, {

@@ -1,5 +1,5 @@
 import { Company } from "@/services/companies/companies";
-import { Image } from "@nextui-org/react";
+import { Image } from "@heroui/react";
 import Link from "next/link";
 
 interface CompanyCardProps{

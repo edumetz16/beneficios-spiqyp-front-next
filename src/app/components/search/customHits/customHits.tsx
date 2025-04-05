@@ -1,5 +1,5 @@
 'use client'
-import { Link } from "@nextui-org/react";
+import { Image, Link } from "@heroui/react";
 import React from 'react';
 import {
     Highlight,
@@ -20,6 +20,7 @@ export default function CustomHits(props: UseHitsProps) {
           onAuxClick={() => sendEvent('click', hit, 'Hit Clicked')}
           href={`/benefits/${hit.objectID}`}
         >
+          <Image src={hit.companyImage} alt={hit.name} width={100} height={100} className="w-12 h-12 object-cover mr-4"/>
             <Highlight hit={hit} attribute="name" className="Hit-label" />
 
         </Link>

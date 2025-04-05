@@ -3,7 +3,7 @@ import Banner from "@/app/components/swipers/Banners";
 import { getCurrentUser, isUserAuthenticated } from "@/services/auth/auth.service";
 import { getBanners } from "@/services/banners/banners";
 import { getBenefitsByCompany, getCompany, getImageByCompany } from "@/services/companies/companies";
-import { Button, Image } from "@nextui-org/react";
+import { Button, Image } from "@heroui/react";
 import Link from "next/link";
 
 

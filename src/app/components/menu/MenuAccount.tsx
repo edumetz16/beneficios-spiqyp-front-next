@@ -1,4 +1,4 @@
-import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Link, Spinner } from "@nextui-org/react"
+import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Link, Spinner } from "@heroui/react"
 
 import { useAuth } from "@/app/auth/AuthContext";
 import { signOut } from "@/services/auth/auth.client";

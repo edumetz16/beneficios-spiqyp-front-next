@@ -71,6 +71,5 @@ export const createUserWithValidation = async ({email, password, affiliateNumber
   const isValid = await dbService.isValidAfiiliate(affiliateNumber, document);
   if(!isValid) throw new Error("Invalid affiliate", {cause: {code: "auth/invalid-affiliate"}});
   const user = await auth.createUser({password, email});
-  await auth.updateUser(user.uid, {emailVerified: true});
   return user;
 }

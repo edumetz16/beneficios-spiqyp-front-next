@@ -1,4 +1,4 @@
-import { Skeleton } from "@nextui-org/react";
+import { Skeleton } from "@heroui/react";
 
 export default async function Loading({
   children,

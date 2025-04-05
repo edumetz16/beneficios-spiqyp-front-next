@@ -1,7 +1,7 @@
 'use client'
 import { signInWithEmail, signInWithGoogle, signUpWithEmail } from "@/services/auth/auth.client";
 import { useRedirectAfterLogin } from "@/shared/hooks/useRedirectAfterLogin";
-import { Button, Divider, Image, Input, Link, Spinner } from "@nextui-org/react";
+import { Button, Divider, Image, Input, Link, Spinner } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useRef, useState } from "react";
 
@@ -53,7 +53,7 @@ const Register = () => {
                 <form ref={formRef} onSubmit={register}>
                     <div className="flex flex-col gap-4 my-4 text-black">
                         <Input isRequired type="text" label="Numero de documento" name="document" required variant="bordered" />
-                        <Input isRequired type="text" label="Numero de afiliado" name="affiliateNumber" required variant="bordered" />
+                        {/* <Input isRequired type="text" label="Numero de afiliado" name="affiliateNumber" required variant="bordered" /> */}
                         <Input type="email" label="Email" name="email" isRequired variant="bordered" />
                         <Input
                             name="password"

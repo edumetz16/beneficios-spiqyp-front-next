@@ -1,7 +1,7 @@
 'use client'
 import { useAuth } from "@/app/auth/AuthContext";
 import { Benefit } from "@/shared/types.shared";
-import { Button, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
+import { Button, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@heroui/react";
 import { useState } from "react";
 import { VoucherIcon } from "../icons/VoucherIcon";
 

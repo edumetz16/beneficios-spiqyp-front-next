@@ -1,7 +1,7 @@
 'use client'
 import { signInWithEmail, signInWithGoogle, signUpWithEmail } from "@/services/auth/auth.client";
 import { useRedirectAfterLogin } from "@/shared/hooks/useRedirectAfterLogin";
-import { Button, Divider, Image, Input, Link, Spinner } from "@nextui-org/react";
+import { Button, Divider, Image, Input, Link, Spinner } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 

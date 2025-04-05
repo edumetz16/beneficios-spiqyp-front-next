@@ -16,13 +16,13 @@ export default function PageContent({
   const router = useRouter();
 
   const handleSignIn = async () => {
-    const isOk = await signInWithGoogle();
+    await signInWithGoogle();
 
     router.push("/dashboard");
   };
 
   const handleSignOut = async () => {
-    const isOk = await signOut();
+    await signOut();
 
     router.push("/sign-in");
   };
