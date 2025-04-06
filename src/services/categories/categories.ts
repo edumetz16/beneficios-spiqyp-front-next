@@ -1,4 +1,4 @@
-import { db } from "../../firestore/firestore"
+import { db } from "../firestore/firestore"
 
 export type Category = {
     id:string;
