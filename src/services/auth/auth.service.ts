@@ -66,9 +66,9 @@ export async function verifyIdToken(idToken: string) {
   const currentUser = await auth.getUser(decodedIdToken.uid);
 }
 
-export const createUserWithValidation = async ({email, password, affiliateNumber, document}: CreateUserRequestAdditionalValidation) => {
+export const createAuthUserWithValidation = async ({email, password, affiliateNumber, govId}: CreateUserRequestAdditionalValidation) => {
   const dbService = new sheetsDatabase();
-  const isValid = await dbService.isValidAfiiliate(affiliateNumber, document);
+  const isValid = await dbService.isValidAfiiliate(affiliateNumber, govId);
   if(!isValid) throw new Error("Invalid affiliate", {cause: {code: "auth/invalid-affiliate"}});
   const user = await auth.createUser({password, email});
   return user;

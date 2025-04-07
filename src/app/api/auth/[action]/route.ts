@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-import { createSessionCookie, createUserWithValidation, revokeAllSessions } from "@/services/auth/auth.service";
+import { createSessionCookie, createAuthUserWithValidation, revokeAllSessions } from "@/services/auth/auth.service";
 import { ApiResponse } from "@/shared/types.server";
 import { UserRecord } from "firebase-admin/auth";
 
@@ -15,7 +15,7 @@ export interface CreateUserResponse extends ApiResponse {
   data?: UserRecord,
 }
 export interface CreateUserRequestAdditionalValidation extends CreateUserRequest {
-  document: string,
+  govId: string,
   affiliateNumber: string,
 }
 
@@ -48,7 +48,7 @@ export async function GET(request: NextRequest,
 
 const Create = async (createUserRequest: CreateUserRequestAdditionalValidation) => {
   try {
-    const user = await createUserWithValidation(createUserRequest);
+    const user = await createAuthUserWithValidation(createUserRequest);
     if (!user) {
       throw new Error("Error creating user.", {cause: {code: "auth/user-creation-error"}});
     }

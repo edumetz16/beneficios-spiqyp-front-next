@@ -52,7 +52,7 @@ const Register = () => {
                 <p className={`text-xl font-bold text-primary text-center w-full`}>Crear Cuenta</p>
                 <form ref={formRef} onSubmit={register}>
                     <div className="flex flex-col gap-4 my-4 text-black">
-                        <Input isRequired type="text" label="Numero de documento" name="document" required variant="bordered" />
+                        <Input isRequired type="text" label="Numero de documento" name="govId" required variant="bordered" />
                         {/* <Input isRequired type="text" label="Numero de afiliado" name="affiliateNumber" required variant="bordered" /> */}
                         <Input type="email" label="Email" name="email" isRequired variant="bordered" />
                         <Input

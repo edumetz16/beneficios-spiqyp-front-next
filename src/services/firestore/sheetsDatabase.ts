@@ -5,7 +5,7 @@ type User = {
   affiliateNumber: number,
                   name: string,
                   relationship: string,
-                  document: string,
+                  govId: string,
                   company: string,
 }
 export default class sheetsDatabase {
@@ -20,9 +20,6 @@ export default class sheetsDatabase {
   getAllUsers() {
     return new Promise(async (resolve, reject)=>{
       try {
-        this.sheetsAPI.spreadsheets.getByDataFilter({
-
-        })
         const response = await this.sheetsAPI.spreadsheets.values.get({
           spreadsheetId: this.spreadsheetId,
           range: "Afiliados!A:Z",
@@ -39,6 +36,36 @@ export default class sheetsDatabase {
         reject(e);
       }
     });
+  }
+
+  async getUserByField(value: string, field: number) {
+    try {
+      const response = await this.sheetsAPI.spreadsheets.values.get({
+        spreadsheetId: this.spreadsheetId,
+        range: "Afiliados!A:Z",
+        key: "AIzaSyBvIzOhe_imZAQtXWq3UVolFp8QoCjXXvA",
+        auth: this.clientAuth,
+      });
+      if (response.data.values) {
+        const fields = response.data.values[0];
+        for (const row of response.data.values) {
+          if (row[field] === value) {
+            const user: any = {};
+            for (let i = 0; i < fields.length; i++) {
+              const fieldName = new String(fields[i]).valueOf();
+              user[fieldName] = row[i];
+            }
+            return user;
+          }
+        }
+        throw new Error("No user matches the search");
+      } else {
+        throw new Error("No user matches the search");
+      }
+    } catch (e) {
+      console.log(e);
+      throw e;
+    }
   }
 
   getUsersByAffiliateNumber(affiliateNumber: string) {
@@ -69,7 +96,7 @@ export default class sheetsDatabase {
                   affiliateNumber: user[0],
                   name: user[1],
                   relationship: user[6],
-                  document: user[3],
+                  govId: user[3],
                   company: user[10],
                 });
               }
@@ -86,7 +113,7 @@ export default class sheetsDatabase {
     });
   }
 
-  isValidAfiiliate =  async (affiliateNumber: string, document: string) => {
+  isValidAfiiliate =  async (affiliateNumber: string, govId: string) => {
       try {
         let isValid = false;
         const users: User[] = [];
@@ -101,7 +128,7 @@ export default class sheetsDatabase {
           const rows = response.data.values;
           for (const user of rows) {
 
-            if (user[3] === document) {
+            if (user[3] === govId) {
               isValid = true;
               break;
             }
