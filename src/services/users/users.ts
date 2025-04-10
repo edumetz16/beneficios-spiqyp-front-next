@@ -15,7 +15,7 @@ export const createUser = async (data: UserCreateRequest, id?: string) => {
     const dbService = new sheetsDatabase();
     const customerDBUser = await dbService.getUserByField(data.govId, 3);
     const mappedData = await mapCustomerUserData(customerDBUser);
-    data = {...data, ...mappedData}
+    data = {...mappedData, ...data}
 
     const {...user} = new User(data, id);
     await db.doc(`users/${user.id}`).set(user);

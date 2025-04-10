@@ -19,14 +19,14 @@ const Menu = () => {
 
    
     return (
-        <Navbar className="text-black py-4" maxWidth="xl" height={120}>
+        <Navbar className="text-black py-4" maxWidth="xl" height={80}>
             <NavbarMenuToggle
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                 className="sm:hidden"
             />
             <NavbarBrand>
                 <Link href="/">
-                    <Image className="" src={"/img/logos/logo_spiqyp.png"} alt={"logo"} width={80} height={80}/>
+                    <Image className="" src={"/img/logos/logo_spiqyp.png"} alt={"logo"} width={70} height={70}/>
                 </Link>
             </NavbarBrand>
 

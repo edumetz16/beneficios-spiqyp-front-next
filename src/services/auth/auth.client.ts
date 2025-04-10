@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, UserCredential, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, User, UserCredential, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 import { getApps, initializeApp } from "firebase/app";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
@@ -6,6 +6,7 @@ import { use } from "react";
 import { getToken } from "firebase/app-check";
 import { getAppCheck } from "../app-check/app-check.service";
 import { NextApiResponse } from "next";
+import { user } from "@heroui/react";
 
 let firebaseConfig;
 
@@ -74,16 +75,18 @@ export async function signUpWithEmail(data: any) {
   
 }
 
-export async function signInWithEmail(email:string,password:string){
+export async function signInWithEmail(email:string,password:string): Promise<User>{
     
-const userCreds = await signInWithEmailAndPassword(auth, email, password)
+  const userCreds = await signInWithEmailAndPassword(auth, email, password)
 
   // if (!userCreds.user.emailVerified){
   //   throw "auth/email-not-verified";
   // }else{
   // }
   const idToken = await userCreds.user.getIdToken();
-  return await createSession(idToken);
+  await createSession(idToken);
+
+  return userCreds.user;
   
 }
 

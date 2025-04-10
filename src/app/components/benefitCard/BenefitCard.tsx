@@ -3,7 +3,7 @@ import { useAuth } from "@/app/auth/AuthContext";
 import { Benefit } from "@/shared/types.shared";
 import { Button, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@heroui/react";
 import { useState } from "react";
-import { VoucherIcon } from "../icons/VoucherIcon";
+import { VoucherIcon } from "../icons";
 
 const BenefitCard = ({benefit}:{benefit:Benefit}) => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -52,7 +52,7 @@ const BenefitCard = ({benefit}:{benefit:Benefit}) => {
                 {(benefit.startDate || benefit.endDate) && <p>Disponible {benefit.startDate && `desde el : ${benefit.startDate.toLocaleDateString()}`} {benefit.endDate && `hasta el ${benefit.endDate.toLocaleDateString()}`}</p>}
                 <p>{benefit.termsAndConditions}</p>
                 {couponValue ? <div className="flex gap-2 items-center p-2 bg-gray-300 rounded-md w-fit"><div className="w-6"><VoucherIcon/></div>{couponValue}</div> : 
-                    <Button className={`btn w-fit text-white`} onClick={ () => {if(benefit.redemptionType === 'dynamic_code') {cuponRequest(benefit.id) } else if(benefit.redemptionType === 'static_code') setCouponValue(benefit.redemptionValue as string)}}>Solicitar cupon</Button>
+                    <Button className={`btn w-fit text-white`} onPress={ () => {if(benefit.redemptionType === 'dynamic_code') {cuponRequest(benefit.id) } else if(benefit.redemptionType === 'static_code') setCouponValue(benefit.redemptionValue as string)}}>Solicitar cupon</Button>
                 }
                 {benefit.redemptionType === 'link' && <Button as={Link} href={benefit.redemptionValue} className={`btn w-fit text-white`}>Acceder al beneficio</Button>}
             </div>

@@ -13,13 +13,10 @@ export const MenuAccount = () => {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const logout = async () => {
-    console.log('logging out');
     setIsLoggingOut(true);
     await signOut();
-    console.log('logged out out');
-    console.log(user);
-    router.refresh();
     setIsLoggingOut(false);
+    router.refresh();
   }
 
   // useMemo(() => { console.log(user) }, [user]);

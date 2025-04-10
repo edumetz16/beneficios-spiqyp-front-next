@@ -2,6 +2,7 @@
 import { signInWithEmail, signInWithGoogle, signUpWithEmail } from "@/services/auth/auth.client";
 import { useRedirectAfterLogin } from "@/shared/hooks/useRedirectAfterLogin";
 import { Button, Divider, Image, Input, Link, Spinner } from "@heroui/react";
+import { sendEmailVerification } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useRef, useState } from "react";
 
@@ -29,8 +30,13 @@ const Register = () => {
             await signUpWithEmail(formEntries);
 
             setMessage('Cuenta creada con éxito, iniciando sesión...');
+
             
-            await signInWithEmail(formEntries.email, formEntries.password);
+            const user = await signInWithEmail(formEntries.email, formEntries.password);
+            
+            if(!user.emailVerified) {
+                sendEmailVerification(user);
+            }
 
             redirectAfterLogin();
             
@@ -55,6 +61,7 @@ const Register = () => {
                         <Input isRequired type="text" label="Numero de documento" name="govId" required variant="bordered" />
                         {/* <Input isRequired type="text" label="Numero de afiliado" name="affiliateNumber" required variant="bordered" /> */}
                         <Input type="email" label="Email" name="email" isRequired variant="bordered" />
+                        <Input type="tel" label="Teléfono" name="phone" isRequired variant="bordered" />
                         <Input
                             name="password"
                             className="flex items-center"

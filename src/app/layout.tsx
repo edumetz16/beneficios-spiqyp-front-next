@@ -38,19 +38,17 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${pjs.className} bg-[#f6f6f3]`}>
-        <AuthProvider user={user}>
+      <AuthProvider user={user}>
+      <body className={`${pjs.className} bg-[#f6f6f3] pb-20 lg:pb-0`}>
           <AppAlert/>
-        </AuthProvider>
-        <AuthProvider user={user}><Menu/></AuthProvider>
-        <AuthProvider user={user}>
-          <div className="pt-2 lg:pt-8">
+        <Menu/>
+          <div>
             {children}
           </div>
-        </AuthProvider>
         <Footer/>
         <TabbedMenu/>
       </body>
+      </AuthProvider>
     </html>
   );
 }

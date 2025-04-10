@@ -16,7 +16,7 @@ export default function CustomHits(props: UseHitsProps) {
       {items.map((hit) => (
         <Link
           key={hit.objectID}
-          onClick={() => sendEvent('click', hit, 'Hit Clicked')}
+          onPress={() => sendEvent('click', hit, 'Hit Clicked')}
           onAuxClick={() => sendEvent('click', hit, 'Hit Clicked')}
           href={`/benefits/${hit.objectID}`}
         >
