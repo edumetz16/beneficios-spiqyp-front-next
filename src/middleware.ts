@@ -15,7 +15,7 @@ const serviceAccount = {
 const {
   getUser,
 } = getFirebaseAuth({
-  apiKey: 'YOUR FIREBASE API KEY',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "",
   serviceAccount
 });
 
