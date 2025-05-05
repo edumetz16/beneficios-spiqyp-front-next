@@ -5,6 +5,7 @@ import {
   redirectToHome,
   redirectToLogin
 } from 'next-firebase-auth-edge';
+import { authConfig } from "./config/server.config";
 
 const serviceAccount = {
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID || "",
@@ -26,18 +27,13 @@ export async function middleware(request: NextRequest) {
   return authMiddleware(request, {
     loginPath: '/api/login',
     logoutPath: '/api/logout',
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
-    cookieName: "__session",
-    cookieSerializeOptions: {
-      path: "/",
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Only set secure in production
-      sameSite: "lax" as const,
-      maxAge: 12 * 60 * 60 * 24, // twelve days
-      domain: process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_DOMAIN : undefined // Add domain in production
-    },
-    cookieSignatureKeys: JSON.parse(process.env.COOKIE_SECRETS || '[]'),
-    serviceAccount,
+    debug: authConfig.debug,
+    enableMultipleCookies: authConfig.enableMultipleCookies,
+    apiKey: authConfig.apiKey,
+    cookieName: authConfig.cookieName,
+    cookieSerializeOptions: authConfig.cookieSerializeOptions,
+    cookieSignatureKeys: authConfig.cookieSignatureKeys,
+    serviceAccount: authConfig.serviceAccount,
     handleValidToken: async ({token, decodedToken}, headers) => {
       // Authenticated user should not be able to access /login, /register and /reset-password routes
       if (LOGIN_PATHS.includes(request.nextUrl.pathname)) {
