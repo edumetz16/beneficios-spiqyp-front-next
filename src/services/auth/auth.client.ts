@@ -79,10 +79,6 @@ export async function signInWithEmail(email:string,password:string): Promise<Use
     
   const userCreds = await signInWithEmailAndPassword(auth, email, password)
 
-  // if (!userCreds.user.emailVerified){
-  //   throw "auth/email-not-verified";
-  // }else{
-  // }
   const idToken = await userCreds.user.getIdToken();
   await createSession(idToken);
 

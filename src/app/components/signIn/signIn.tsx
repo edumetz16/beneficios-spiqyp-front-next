@@ -46,7 +46,7 @@ const SignIn = () => {
             
         } catch (error: any) {
             console.log(error.code)
-            setMessage(error);
+            setMessage(error.message);
         } finally {
             setLoading(false)
         }
