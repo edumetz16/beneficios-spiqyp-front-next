@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, User, UserCredential, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, User, UserCredential, confirmPasswordReset, createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 import { getApps, initializeApp } from "firebase/app";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
@@ -87,6 +87,18 @@ export async function signInWithEmail(email:string,password:string): Promise<Use
   await createSession(idToken);
 
   return userCreds.user;
+  
+}
+export async function sendPasswordReset(email:string): Promise<void>{
+    
+  return sendPasswordResetEmail(auth, email)
+
+  
+}
+export async function resetPassword(oobCode: string, password:string): Promise<void>{
+    
+  return confirmPasswordReset(auth, oobCode, password)
+
   
 }
 

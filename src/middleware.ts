@@ -20,7 +20,7 @@ const {
   serviceAccount
 });
 
-const PUBLIC_PATHS = ['/login','/register','/reset-password'];
+const PUBLIC_PATHS = ['/login','/register','/reset-password','/reset-password/confirm'];
 const LOGIN_PATHS = ['/login','/register'];
 
 export async function middleware(request: NextRequest) {

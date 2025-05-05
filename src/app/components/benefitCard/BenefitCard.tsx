@@ -51,13 +51,13 @@ const BenefitCard = ({benefit}:{benefit:Benefit}) => {
                 <p className="text-md lg:text-lg">{benefit.description}</p>
                 {(benefit.startDate || benefit.endDate) && <p>Disponible {benefit.startDate && `desde el : ${benefit.startDate.toLocaleDateString()}`} {benefit.endDate && `hasta el ${benefit.endDate.toLocaleDateString()}`}</p>}
                 <p>{benefit.termsAndConditions}</p>
-                {couponValue ? <div className="flex gap-2 items-center p-2 bg-gray-300 rounded-md w-fit"><div className="w-6"><VoucherIcon/></div>{couponValue}</div> : 
+                {couponValue ? <div className="flex gap-2 items-center p-2 bg-gray-300 rounded-lg w-fit"><div className="w-6"><VoucherIcon/></div>{couponValue}</div> : 
                     <Button className={`btn w-fit text-white`} onPress={ () => {if(benefit.redemptionType === 'dynamic_code') {cuponRequest(benefit.id) } else if(benefit.redemptionType === 'static_code') setCouponValue(benefit.redemptionValue as string)}}>Solicitar cupon</Button>
                 }
                 {benefit.redemptionType === 'link' && <Button as={Link} href={benefit.redemptionValue} className={`btn w-fit text-white`}>Acceder al beneficio</Button>}
             </div>
             <div className="absolute h-full w-16 top-0 right-0 border-dashed border-l border-gray-400">
-                <div className="absolute right-0 top-[calc(50%-16px)] w-4 h-8 rounded-tl-2xl rounded-bl-2xl  border-r-transparent bg-[#f6f6f3]"></div>
+                <div className="absolute right-0 top-[calc(50%-16px)] w-4 h-8 rounded-tl-lg rounded-bl-lg  border-r-transparent bg-[#f6f6f3]"></div>
                 {/* <div className="absolute -left-2 top-0 w-4 h-2 rounded-bl-xl rounded-br-xl  border-t-transparent bg-[#f6f6f3]"></div>
                 <div className="absolute -left-2 bottom-0 w-4 h-2 rounded-tl-xl rounded-tr-xl  border-b-transparent bg-[#f6f6f3]"></div> */}
             </div>

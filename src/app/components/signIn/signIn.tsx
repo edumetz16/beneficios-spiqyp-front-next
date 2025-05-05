@@ -94,7 +94,7 @@ const SignIn = () => {
                             </div>
                         </Button>
                         {message && <p className={`text-black text-center`}>{message}</p>}
-                        <Button >¿Olvidaste tu contraseña?</Button>
+                        <Button as={Link} href="/reset-password" >¿Olvidaste tu contraseña?</Button>
                         <Link type="reset" href="/register">¿No tenés cuenta? Registrate.</Link>
                     </div>
                 </form>
