@@ -41,10 +41,9 @@ export default function ResetPasswordActionPage() {
         router.push('/login');
       }, 2000);
     } catch (error: any) {
+      setLoading(false);
       console.error('Error al restablecer la contraseña:', error);
       setMessage('Este enlace de restablecimiento de contraseña es inválido o ha expirado.');
-    } finally {
-      setLoading(false);
     }
   };
 

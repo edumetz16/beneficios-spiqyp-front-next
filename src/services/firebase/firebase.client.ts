@@ -8,11 +8,12 @@ import {
 import {getOrInitializeAppCheck} from '../app-check/app-check.service';
 
 export const getFirebaseApp = () => {
-  if (getApps().length) {
-    return getApp();
+  console.log(getApps())
+  if (getApps().length > 0) {
+    return getApp("firebase-client");
   }
 
-  const app = initializeApp(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_CLIENT_CONFIG || '{}'));
+  const app = initializeApp(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_CLIENT_CONFIG || '{}'), "firebase-client");
 
   if (process.env.NEXT_PUBLIC_FIREBASE_APP_CHECK_KEY) {
     getOrInitializeAppCheck(app);

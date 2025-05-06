@@ -19,7 +19,7 @@ const Menu = () => {
 
    
     return (
-        <Navbar className="text-black py-4" maxWidth="xl" height={80}>
+        <Navbar className="text-black" maxWidth="xl" height={80}>
             <NavbarMenuToggle
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                 className="sm:hidden"

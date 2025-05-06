@@ -43,7 +43,7 @@ export const MenuAccount = () => {
             <DropdownItem key="settings">Perfil</DropdownItem>
             <DropdownItem key="help_and_feedback">Ayuda</DropdownItem>
             <DropdownItem key="logout" color="danger">
-              <Link href="/" onClick={() => logout()}>Cerrar Sesion</Link>
+              <Link onPress={() => logout()}>Cerrar Sesion</Link>
             </DropdownItem>
           </DropdownMenu>
         </Dropdown> : <Button as={Link} color="primary" href="/login/" variant="flat">

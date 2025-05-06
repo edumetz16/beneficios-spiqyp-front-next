@@ -14,6 +14,7 @@ import {Alert} from "@heroui/alert";
 import { Button } from "@heroui/react";
 import { sendEmailVerification, User } from "firebase/auth";
 import { AppAlert } from "./components/appAlert/AppAlert";
+import { UserDataProvider } from "./context/UserDataContext";
 
 const pjs = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
@@ -39,15 +40,17 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <AuthProvider user={user}>
-      <body className={`${pjs.className} bg-[#f6f6f3] pb-20 lg:pb-0`}>
-          <AppAlert/>
-        <Menu/>
-          <div>
-            {children}
-          </div>
-        <Footer/>
-        <TabbedMenu/>
-      </body>
+        <UserDataProvider>
+          <body className={`${pjs.className} bg-[#f6f6f3] pb-20 lg:pb-0`}>
+            <AppAlert/>
+            <Menu/>
+            <div>
+              {children}
+            </div>
+            <Footer/>
+            <TabbedMenu/>
+          </body>
+        </UserDataProvider>
       </AuthProvider>
     </html>
   );

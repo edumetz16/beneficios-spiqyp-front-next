@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@heroui/react": "2.7.5",
     "@sendgrid/mail": "^8.1.1",
     "algoliasearch": "^4.24.0",

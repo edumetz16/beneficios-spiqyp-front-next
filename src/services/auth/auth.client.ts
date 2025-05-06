@@ -7,22 +7,11 @@ import { getToken } from "firebase/app-check";
 import { getAppCheck } from "../app-check/app-check.service";
 import { NextApiResponse } from "next";
 import { user } from "@heroui/react";
+import { getFirebaseApp } from "../firebase/firebase.client";
 
 let firebaseConfig;
 
-const app = getApps().find((it) => it.name === "firebase-client-app") ||
-  initializeApp(
-    {
-      apiKey: "AIzaSyBvIzOhe_imZAQtXWq3UVolFp8QoCjXXvA",
-      authDomain: "web-spiqyp.firebaseapp.com",
-      projectId: "web-spiqyp",
-      storageBucket: "web-spiqyp.appspot.com",
-      messagingSenderId: "849474439575",
-      appId: "1:849474439575:web:1711e28672ca9395359cd2",
-      measurementId: "G-NXP3G5RXY8"
-    },
-    "firebase-client-app"
-  );
+const app = getFirebaseApp();
 const auth = getAuth(app);
 const db = getFirestore(app)
 

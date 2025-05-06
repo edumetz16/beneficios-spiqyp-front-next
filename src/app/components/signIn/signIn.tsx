@@ -45,10 +45,9 @@ const SignIn = () => {
             redirectAfterLogin();
             
         } catch (error: any) {
+            setLoading(false)
             console.log(error.code)
             setMessage(error.message);
-        } finally {
-            setLoading(false)
         }
 
 
