@@ -31,7 +31,7 @@ export const AffiliationCard = ({ onClose }: AffiliationCardProps) => {
       let members = [];
       if (userData.roles && userData.roles.includes("holder")) {
         const snap = await getDocs(query(collection(db, "users"), where("affiliateNumber", "==", userData.affiliateNumber)));
-        members = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        members = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })) as any[];
         // Remove the logged-in user from the list (if present, compare govId as string)
         members = members.filter(m => String(m.govId).trim() !== String(userData.govId).trim());
         // Put the logged-in user first
