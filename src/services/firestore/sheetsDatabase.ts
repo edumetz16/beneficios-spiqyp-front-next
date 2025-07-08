@@ -17,25 +17,23 @@ export default class sheetsDatabase {
   sheetsAPI = google.sheets({version: "v4"});
   spreadsheetId = "1pbkmSTdSdhtvYZrhm2VDZAEfrvWhYNmlCy5-WN20DJ8";
 
-  getAllUsers() {
-    return new Promise(async (resolve, reject)=>{
-      try {
-        const response = await this.sheetsAPI.spreadsheets.values.get({
-          spreadsheetId: this.spreadsheetId,
-          range: "Afiliados!A:Z",
-          key: "AIzaSyBvIzOhe_imZAQtXWq3UVolFp8QoCjXXvA",
-          auth: this.clientAuth,
-        });
-        if (response.data.values) {
-          resolve(response.data.values);
-        } else {
-          reject(new Error("No values for queried data"));
-        }
-      } catch (e) {
-        console.log(e);
-        reject(e);
+  async getAllUsers() {
+    try {
+      const response = await this.sheetsAPI.spreadsheets.values.get({
+        spreadsheetId: this.spreadsheetId,
+        range: "Afiliados!A:Z",
+        key: "AIzaSyBvIzOhe_imZAQtXWq3UVolFp8QoCjXXvA",
+        auth: this.clientAuth,
+      });
+      if (response.data.values) {
+        return response.data.values;
+      } else {
+        throw new Error("No values for queried data");
       }
-    });
+    } catch (e) {
+      console.log(e);
+      throw e;
+    }
   }
 
   async getUserByField(value: string, field: number) {

@@ -1,10 +1,10 @@
 import { generateId } from "@/shared/shared.service";
 
 export type UserCreateRequest = {
-  email: string;
+  email?: string;
   firstName: string;
   lastName: string;
-  photoURL: string;
+  photoURL?: string;
   govId: string;
   phoneNumber?: string;
   affiliateNumber?: string;
@@ -37,7 +37,7 @@ export class User {
     }
     this.firstName = data.firstName || "";
     this.lastName = data.lastName || "";
-    this.email = data.email;
+    this.email = data.email || "";
     this.photoURL = data.photoURL || "";
     this.govId = data.govId || "";
     this.phoneNumber = data.phoneNumber || "";

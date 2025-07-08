@@ -1,5 +1,6 @@
 import { heroui } from "@heroui/react";
 import type { Config } from "tailwindcss";
+import typography from '@tailwindcss/typography';
 
 const config: Config = {
   content: [
@@ -15,26 +16,60 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: 'inherit',
+            a: {
+              color: 'inherit',
+              textDecoration: 'none',
+              fontWeight: '500',
+            },
+            strong: {
+              color: 'inherit',
+            },
+            code: {
+              color: 'inherit',
+            },
+            h1: {
+              color: 'inherit',
+            },
+            h2: {
+              color: 'inherit',
+            },
+            h3: {
+              color: 'inherit',
+            },
+            h4: {
+              color: 'inherit',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [heroui({
-    themes: {
-      light: {
-        colors: {
-          primary: {
-            DEFAULT: '#0d2f6e'
-          },
-        }
-      },
-      dark: {
-        colors: {
-          primary: {
-            DEFAULT: '#0d2f6e'
-          },
+  plugins: [
+    typography,
+    heroui({
+      themes: {
+        light: {
+          colors: {
+            primary: {
+              DEFAULT: '#0d2f6e'
+            },
+          }
+        },
+        dark: {
+          colors: {
+            primary: {
+              DEFAULT: '#0d2f6e'
+            },
+          }
         }
       }
-    }
-  })],
+    })
+  ],
   darkMode: "class",
 };
 export default config;

@@ -1,14 +1,22 @@
 "use client"
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { HomeIcon, Bars3Icon, IdentificationIcon } from "@heroicons/react/24/outline"
 import { AffiliationCard } from "../affiliation/AffiliationCard"
+import { useAuth } from "@/app/auth/AuthContext"
 
 export const TabbedMenu = () => {
+  const { user } = useAuth();
   const [showCard, setShowCard] = useState(false)
   const router = useRouter();
-  // For now, Home is always active
+  const pathname = usePathname();
+
+  // Only show if user is logged in
+  if (!user) return null;
+
+  const isHome = pathname === "/";
+
   return (
     <>
       <AnimatePresence>
@@ -29,9 +37,9 @@ export const TabbedMenu = () => {
         <div className="relative flex items-center justify-between bg-white rounded-full shadow-xl px-8 h-16 w-[90vw] max-w-md">
           {/* Home Icon */}
           <button className="flex flex-col items-center justify-center focus:outline-none" onClick={() => router.push("/") }>
-            <HomeIcon className="w-7 h-7 text-primary" />
+            <HomeIcon className={`w-7 h-7 ${isHome ? "text-primary" : "text-gray-400"}`} />
             <span className="block mt-1">
-              <span className="w-2 h-2 bg-primary rounded-full inline-block"></span>
+              {isHome && <span className="w-2 h-2 bg-primary rounded-full inline-block"></span>}
             </span>
           </button>
 

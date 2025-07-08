@@ -22,7 +22,7 @@ export const createUser = async (data: UserCreateRequest, id?: string) => {
     return user;
 }
 
-const mapCustomerUserData = async (data: any) => {
+export const mapCustomerUserData = async (data: any) => {
     const mappedData: any = {};
     const customerDBFields= (await db.doc(`config/customer_database_fields`).get()).data() as  Record<string, string> ;
     for(const field in customerDBFields) {

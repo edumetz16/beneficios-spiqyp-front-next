@@ -4,6 +4,7 @@ import { Benefit } from "@/shared/types.shared";
 import { Button, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@heroui/react";
 import { useState } from "react";
 import { VoucherIcon } from "../icons";
+import ReactMarkdown from 'react-markdown';
 
 const BenefitCard = ({benefit}:{benefit:Benefit}) => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -48,16 +49,18 @@ const BenefitCard = ({benefit}:{benefit:Benefit}) => {
         <div className="col-span-12 lg:col-span-8 text-black p-4 lg:p-4 rounded-lg mb-6 bg-white relative">
             <div className="flex flex-col gap-1 lg:gap-2 max-w-[calc(100%-64px)]">
                 <h3 className="text-xl lg:text-2xl font-bold">{benefit.title}</h3>
-                <p className="text-md lg:text-lg">{benefit.description}</p>
+                <div className="text-md lg:text-lg prose prose-sm max-w-none">
+                    <ReactMarkdown>{benefit.description}</ReactMarkdown>
+                </div>
                 {(benefit.startDate || benefit.endDate) && <p>Disponible {benefit.startDate && `desde el : ${benefit.startDate.toLocaleDateString()}`} {benefit.endDate && `hasta el ${benefit.endDate.toLocaleDateString()}`}</p>}
-                <p>{benefit.termsAndConditions}</p>
-                {couponValue ? <div className="flex gap-2 items-center p-2 bg-gray-300 rounded-lg w-fit"><div className="w-6"><VoucherIcon/></div>{couponValue}</div> : 
-                    <Button className={`btn w-fit text-white`} onPress={ () => {if(benefit.redemptionType === 'dynamic_code') {cuponRequest(benefit.id) } else if(benefit.redemptionType === 'static_code') setCouponValue(benefit.redemptionValue as string)}}>Solicitar cupon</Button>
-                }
-                {benefit.redemptionType === 'link' && <Button as={Link} href={benefit.redemptionValue} className={`btn w-fit text-white`}>Acceder al beneficio</Button>}
+                {benefit.redemptionType === 'link' ? (<Button as={Link} href={benefit.redemptionValue} target="_blank" className={`btn w-fit text-white`}>Acceder al beneficio</Button>)
+                : couponValue ? <div className="flex gap-2 items-center p-2 bg-gray-300 rounded-lg w-fit"><div className="w-6"><VoucherIcon/></div>{couponValue}</div> : 
+                <Button className={`btn w-fit text-white`} onPress={ () => {if(benefit.redemptionType === 'dynamic_code') {cuponRequest(benefit.id) } else if(benefit.redemptionType === 'static_code') setCouponValue(benefit.redemptionValue as string)}}>Solicitar cupon</Button>
+            }
+            <p className="text-xs italic">{benefit.termsAndConditions}</p>
             </div>
             <div className="absolute h-full w-16 top-0 right-0 border-dashed border-l border-gray-400">
-                <div className="absolute right-0 top-[calc(50%-16px)] w-4 h-8 rounded-tl-lg rounded-bl-lg  border-r-transparent bg-[#f6f6f3]"></div>
+                <div className="absolute right-0 top-[calc(50%-16px)] w-4 h-8 rounded-tl-[100%] rounded-bl-[100%]  border-r-transparent bg-[#f6f6f3]"></div>
                 {/* <div className="absolute -left-2 top-0 w-4 h-2 rounded-bl-xl rounded-br-xl  border-t-transparent bg-[#f6f6f3]"></div>
                 <div className="absolute -left-2 bottom-0 w-4 h-2 rounded-tl-xl rounded-tr-xl  border-b-transparent bg-[#f6f6f3]"></div> */}
             </div>
@@ -79,7 +82,7 @@ const BenefitCard = ({benefit}:{benefit:Benefit}) => {
                         <p className="text-md">{ticket.benefitTitle}</p>
                         <p className="text-md">{user?.email}</p>
                         <p className="text-md">{ticket.startDate && `valido desde ${ticket.startDate}`} {ticket.endDate && `hasta ${ticket.endDate}`}</p>
-                        <p className="text-md">terminos y condiciones</p>
+                        <p className="text-md">términos y condiciones</p>
                     </div>
                 </ModalBody>
                 <ModalFooter>
