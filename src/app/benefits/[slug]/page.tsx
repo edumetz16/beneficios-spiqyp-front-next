@@ -22,7 +22,7 @@ export default async function BenefitPage({params:{slug}}:any) {
             <div className="mt-6 grid grid-cols-12 gap-4">
                 <div className="col-span-12 md:col-span-4 order-1 md:order-2 justify-end">
                     {company.companyLogo ? <Image className="h-16" alt={company.name} src={company.companyLogo} height={100} /> : 
-                    <h1 className="text-4xl">{company.name}</h1>}
+                    <h1 className="text-4xl text-black md:text-right">{company.name}</h1>}
                 </div>
                 <div className="col-span-12 md:col-span-8 order-2 md:order-1">
                     <div className="rounded-xl w-full text-black">
