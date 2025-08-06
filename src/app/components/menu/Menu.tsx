@@ -6,9 +6,12 @@ import { useState } from "react";
 import Search from "../search/search";
 import { Divider, Listbox, ListboxItem, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from "@heroui/react";
 import { MenuAccount } from "./MenuAccount";
+import { usePathname, useRouter } from "next/navigation";
 
 
 const Menu = () => {
+
+    const pathname = usePathname();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -31,9 +34,11 @@ const Menu = () => {
             </NavbarBrand>
 
             <NavbarContent justify="center" className="grow w-full max-w-lg">
-            <div className="hidden lg:flex justify-center h-fit max-h-8 grow w-full">
-                <Search/>
-            </div>
+                {pathname !== "/search" && (
+                    <div className="hidden lg:flex justify-center h-fit max-h-8 grow w-full">
+                        <Search/>
+                    </div>
+                )}
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem>
