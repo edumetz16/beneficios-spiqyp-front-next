@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { HomeIcon, Bars3Icon, IdentificationIcon } from "@heroicons/react/24/outline"
+import { HomeIcon, Bars3Icon, IdentificationIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { AffiliationCard } from "../affiliation/AffiliationCard"
 import { useAuth } from "@/app/auth/AuthContext"
 
@@ -56,8 +56,8 @@ export const TabbedMenu = () => {
           </div>
 
           {/* Hamburger Icon */}
-          <button className="flex flex-col items-center justify-center focus:outline-none">
-            <Bars3Icon className="w-7 h-7 text-gray-400" />
+          <button className="flex flex-col items-center justify-center focus:outline-none" onClick={() => router.push("/search")}>
+            <MagnifyingGlassIcon className="w-7 h-7 text-gray-400" />
           </button>
         </div>
       </div>

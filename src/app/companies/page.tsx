@@ -7,7 +7,7 @@ import Filters from "../components/search/filters/filters";
 
  export default async function companiesPage(){
     
-    const data = await getCompanies(10);
+    const data = await getCompanies();
     const categories = await getCategories();
 
     return (
