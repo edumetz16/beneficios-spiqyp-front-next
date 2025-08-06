@@ -12,7 +12,7 @@ export default function CustomHits(props: UseHitsProps) {
 
   return (
     <>
-    {items && items.length>0 && <ol className={`w-full p-6 bg-gray-200 flex flex-col gap-4`}>
+    {items && items.length>0 && <ol className={`w-full p-6 bg-white flex flex-col gap-4`}>
       {items.map((hit) => (
         <Link
           key={hit.objectID}
@@ -20,7 +20,7 @@ export default function CustomHits(props: UseHitsProps) {
           onAuxClick={() => sendEvent('click', hit, 'Hit Clicked')}
           href={`/benefits/${hit.objectID}`}
         >
-          <Image src={hit.companyImage} alt={hit.name} width={100} height={100} className="w-12 h-12 object-cover mr-4"/>
+          <Image src={hit.companyImage} alt={hit.name} className="w-16 aspect-square object-cover mr-4"/>
             <Highlight hit={hit} attribute="name" className="Hit-label" />
 
         </Link>

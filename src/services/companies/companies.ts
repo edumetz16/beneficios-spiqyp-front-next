@@ -1,7 +1,6 @@
 import { startAfter } from "firebase/database";
 import { db } from "../firestore/firestore"
-import { FieldPath, OrderByDirection } from "firebase-admin/firestore";
-import { doc, or, orderBy } from "firebase/firestore";
+import { DocumentData, DocumentReference, FieldPath, OrderByDirection, Query, WhereFilterOp } from "firebase-admin/firestore";
 import { isDate } from "util/types";
 import { serializeFirestoreDocument } from "../util";
 
@@ -26,7 +25,7 @@ export type Company = {
     companyLogo?:string;
 }
 
-export const getCompanies = async (limit: number, order?: {field: string, direction: OrderByDirection, lastItem?: any},companiesIds?:string[]): Promise<CompaniesResponse> => {
+export const getCompaniesOld = async (limit: number, order?: {field: string, direction: OrderByDirection, lastItem?: any},companiesIds?:string[]): Promise<CompaniesResponse> => {
     const result: CompaniesResponse = {
       companies: [],
     };
@@ -153,4 +152,52 @@ const getLocations = async (company:Company) => {
 
     return locations
 
+}
+
+export const getCompanies = async (
+    filters:{operator: WhereFilterOp, field: string, value: any, isReference?: boolean}[] = [], 
+    sort: {field: string, direction: OrderByDirection}[] = [],
+    limit?: number, 
+    lastItemId?: string,
+): Promise<Company[]> => {
+    const companies: Company[] = [];
+    let q: Query<DocumentData, DocumentData> = db.collection('companies');
+
+    filters.forEach(filter => {
+        if(filter.isReference) {
+            q = q.where(filter.field,filter.operator,db.doc(filter.value))
+        } else {
+            q = q.where(filter.field,filter.operator,filter.value)
+        }
+    })
+
+    sort.forEach(order => {
+        q = q.orderBy(order.field, order.direction)
+    })
+
+    if (lastItemId) {
+        console.log('lastItemId', lastItemId);
+        const snap = await db.doc(`companies/${lastItemId}`).get();
+        q = q.startAfter(snap)
+    }
+
+    if (limit) {
+        q = q.limit(limit)
+    }
+
+
+    const companiesSnapDocs = (await q.get()).docs;
+    for (const doc of companiesSnapDocs) {
+        const company = serializeFirestoreDocument(doc.data());
+        const categories = await getCategories(company);
+        const locations = await getLocations(company);
+        companies.push({
+            id:doc.id,
+            categories,
+            locations,
+            ...company
+        } as Company)
+    }
+
+    return companies;
 }

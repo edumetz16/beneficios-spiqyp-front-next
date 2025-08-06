@@ -53,9 +53,9 @@ const BenefitCard = ({benefit}:{benefit:Benefit}) => {
                     <ReactMarkdown>{benefit.description}</ReactMarkdown>
                 </div>
                 {(benefit.startDate || benefit.endDate) && <p>Disponible {benefit.startDate && `desde el : ${benefit.startDate.toLocaleDateString()}`} {benefit.endDate && `hasta el ${benefit.endDate.toLocaleDateString()}`}</p>}
-                {benefit.redemptionType === 'link' ? (<Button as={Link} href={benefit.redemptionValue} target="_blank" className={`btn w-fit text-white`}>Acceder al beneficio</Button>)
+                {benefit.redemptionType !== 'descriptive' ? (benefit.redemptionType === 'link' ? (<Button as={Link} href={benefit.redemptionValue} target="_blank" className={`btn w-fit text-white`}>Acceder al beneficio</Button>)
                 : couponValue ? <div className="flex gap-2 items-center p-2 bg-gray-300 rounded-lg w-fit"><div className="w-6"><VoucherIcon/></div>{couponValue}</div> : 
-                <Button className={`btn w-fit text-white`} onPress={ () => {if(benefit.redemptionType === 'dynamic_code') {cuponRequest(benefit.id) } else if(benefit.redemptionType === 'static_code') setCouponValue(benefit.redemptionValue as string)}}>Solicitar cupon</Button>
+                <Button className={`btn w-fit text-white`} onPress={ () => {if(benefit.redemptionType === 'dynamic_code') {cuponRequest(benefit.id) } else if(benefit.redemptionType === 'static_code') setCouponValue(benefit.redemptionValue as string)}}>Solicitar cupon</Button>) : <></>
             }
             <p className="text-xs italic">{benefit.termsAndConditions}</p>
             </div>

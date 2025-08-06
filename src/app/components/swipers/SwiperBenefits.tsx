@@ -14,8 +14,9 @@ interface SwiperBenefitsProps {
     description?:string;
     contents: any[];
     linkCategory:string;
+    categories?: string[];
 }
-const SwiperBenefits = ({title,contents,description,linkCategory}:SwiperBenefitsProps) => {
+const SwiperBenefits = ({title,contents,description,linkCategory, categories}:SwiperBenefitsProps) => {
     
     const [swiperContents, setSwiperContents] = useState(contents);
 
@@ -24,19 +25,18 @@ const SwiperBenefits = ({title,contents,description,linkCategory}:SwiperBenefits
     async function getMoreCompanies(){
             const lastItem = swiperContents[swiperContents.length - 1];
             if(lastItem === undefined || !lastItem.id) return;
-           const resp = await fetch("/api/companies",{
-            method:"POST",
+            let path = '/api/companies?';
+            if(categories && categories.length > 0) path += `categories=${categories?.join(',')}&`
+            path += `sort=dateCreated|desc&limit=1&lastItem=${lastItem.id}`
+           const resp = await fetch(path,{
+            method:"GET",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                limit:1,
-                lastItem,
-            })
            })
 
            const responseJson = await resp.json();
-           if(responseJson.success) setSwiperContents([...swiperContents, ...responseJson.data.companies]);
+           if(responseJson.success) setSwiperContents([...swiperContents, ...responseJson.data]);
 
     }
 
