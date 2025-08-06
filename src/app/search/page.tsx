@@ -93,6 +93,12 @@ function DynamicFacets() {
         searchablePlaceholder: "Buscar localidades",
         showMore: true,
       },
+      "flettenedLocations.province": {
+        title: "Filtrar por provincia",
+        searchable: true,
+        searchablePlaceholder: "Buscar provincias",
+        showMore: true,
+      },
       // Add more specific configurations as needed
     };
 
