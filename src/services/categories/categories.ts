@@ -2,24 +2,31 @@ import { db } from "../firestore/firestore"
 import { Category } from "./categories.type";
 
 
-export const getCategories = async (categoryRefs?:string[]) : Promise<Category[]> => {
+export const getCategories = async (categoryRefs?:string[], returnEmpty:boolean = true) : Promise<Category[]> => {
     let categories:Category[] = [];
-    if(categoryRefs){
+    if(categoryRefs && categoryRefs.length > 0){
         for(const categoryRef of categoryRefs){
             const category = await db.doc(categoryRef).get();
-            categories.push({
-                id:category.id,
-                ...category.data()
-            } as Category)
+            const companies = await db.collection('companies').where('categories', 'array-contains', category.ref).get();
+            if (!companies.empty || returnEmpty){
+                categories.push({
+                    id:category.id,
+                    ...category.data()
+                } as Category)
+            }
         }
     } else {
 
-        categories = (await db.collection('categories').get()).docs.map(doc => {
-            return {
-                id:doc.id,
-                ...doc.data()
-            } as Category
-        })
+        const categoriesResponse = (await db.collection('categories').get())
+        for(const category of categoriesResponse.docs){
+            const companies = await db.collection('companies').where('categories', 'array-contains', category.ref).get();
+            if (!companies.empty || returnEmpty){
+                categories.push({
+                    id:category.id,
+                    ...category.data()
+                } as Category)
+            }
+        }
     }
 
     return categories

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.10",
     "@heroicons/react": "^2.2.0",
     "@heroui/react": "2.7.5",
     "@sendgrid/mail": "^8.1.1",

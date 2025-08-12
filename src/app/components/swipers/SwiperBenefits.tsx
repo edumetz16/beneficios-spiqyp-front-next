@@ -13,14 +13,14 @@ interface SwiperBenefitsProps {
     title:string;
     description?:string;
     contents: any[];
-    linkCategory:string;
     categories?: string[];
 }
-const SwiperBenefits = ({title,contents,description,linkCategory, categories}:SwiperBenefitsProps) => {
+const SwiperBenefits = ({title,contents,description, categories}:SwiperBenefitsProps) => {
     
     const [swiperContents, setSwiperContents] = useState(contents);
 
-
+    // const samplePath = "companies[refinementList][categories][0]=categories/KOkBlSwanviKsargwAIV&companies[refinementList][categories][1]=categories/IjmcMFFWiFFHoAVmzdLK";
+    const seeMoreLink = categories && categories.length > 0 ? `/benefits?${categories.map((c,i) => `${encodeURIComponent(`companies[refinementList][categories][${i}]`)}=${encodeURIComponent(`categories/${c}`)}`).join('&')}` : '/benefits';
 
     async function getMoreCompanies(){
             const lastItem = swiperContents[swiperContents.length - 1];
@@ -45,7 +45,7 @@ const SwiperBenefits = ({title,contents,description,linkCategory, categories}:Sw
             <div className="text-black grid grid-cols-12 items-center">
                 <div className="col-span-12 flex items-center">
                     <h2 className="text-2xl lg:text-4xl font-bold ">{title}</h2>
-                    <Link className="text-sm lg:text-lg text-primary font-bold ml-auto" href={linkCategory}>
+                    <Link className="text-sm lg:text-lg text-primary font-bold ml-auto" href={seeMoreLink}>
                         <div className="flex items-center gap-2">
                             <p className="text-sm lg:text-base">Mas beneficios</p>
                             <svg width="20" height="10" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -13,6 +13,39 @@ import { where } from "firebase/firestore";
 
 export default  async function Home() {
   
+  const carousels = [{
+    title: "Beneficios propios",
+    categories: ['wcKiFVdl6Oeqas91Czx3']
+  },
+  {
+    title: "Nuevos Beneficios",
+    categories: []
+  },
+  {
+    title: "Turismo",
+    categories: ['KOkBlSwanviKsargwAIV']
+  },
+  {
+    title: "Hotelería",
+    categories: ['IjmcMFFWiFFHoAVmzdLK']
+  },
+  {
+    title: "Campings",
+    categories: ['qbtXuMmtK6mVi0LNk90m']
+  }]
+
+  const carouselsResponse = await Promise.all(carousels.map(async (carousel) => {
+    const companies = await getCompanies(
+      carousel.categories.map(category => ({operator: 'array-contains', value: `categories/${category}`, field: 'categories', isReference: true})),
+      [{field:'dateCreated', direction:'desc'}],
+      5
+    );
+    return {
+      title: carousel.title,
+      contents: companies,
+      categories: carousel.categories
+    }
+  }));
   const banners = await getBanners();
   const collections = await getCompaniesCollections()
   const companiesResponse = await getCompanies([], [{field:'dateCreated', direction:'desc'}],5);
@@ -26,7 +59,12 @@ export default  async function Home() {
     [{field:'dateCreated', direction:'desc'}],
     5
   );
-  const categories= await getCategories();
+  const companiesResponse4 = await getCompanies(
+    [{operator: 'array-contains', value: "categories/wcKiFVdl6Oeqas91Czx3", field: 'categories', isReference: true}],
+    [{field:'dateCreated', direction:'desc'}],
+    5
+  );
+  const categories= await getCategories([], false);
   return (
     <main>
       <section>
@@ -45,30 +83,19 @@ export default  async function Home() {
           ))
         } */}
         <div className="container mt-6">
-          <h3 className="text-2xl font-bold text-black">Categorías</h3>
+          <h3 className="text-2xl font-bold text-black mb-4">Categorías</h3>
           <SwiperCategories categories={categories}/>
         </div>
-        <div className="container mt-6">
-          <SwiperBenefits 
-            title={"Nuevos Beneficios"} 
-            linkCategory="/companies"
-            description="" 
-            contents={companiesResponse}/>
-        </div>
-        <div className="container mt-10">
-          <SwiperBenefits 
-            linkCategory="/companies"
-            title={"Turismo"} 
-            contents={companiesResponse2}
-            categories={['KOkBlSwanviKsargwAIV']}/>
-        </div>
-        <div className="container mt-10">
-          <SwiperBenefits 
-            linkCategory="/companies"
-            title={"Hotelería"} 
-            contents={companiesResponse3}
-            categories={['IjmcMFFWiFFHoAVmzdLK']}/>
-        </div>
+        {
+          carouselsResponse.map((carousel, i) => (
+            <div key={i} className="container mt-6">
+              <SwiperBenefits 
+                title={carousel.title} 
+                contents={carousel.contents}
+                categories={carousel.categories}/>
+            </div>
+          ))
+        }
       </section>
     </main>
   );

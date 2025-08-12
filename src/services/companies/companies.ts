@@ -21,7 +21,7 @@ export type Company = {
     socialMedia:any;
     website:string;
     dateCreated:any;
-    objectId?:string;
+    objectID?:string;
     companyLogo?:string;
 }
 

@@ -24,7 +24,7 @@ export default async function BenefitPage({params:{slug}}:any) {
             
             <div className="mt-6 grid grid-cols-12 gap-4">
                 <div className="col-span-12 md:col-span-6 order-1 md:order-2 justify-start md:justify-end flex">
-                    {company.companyLogo ? <Image className="h-16" alt={company.name} src={company.companyLogo} height={100} /> : <h1 className="h-16 text-2xl font-bold text-black">{company.name}</h1>}
+                    {company.companyLogo && <Image className="h-16" alt={company.name} src={company.companyLogo} height={100} />}
                 </div>
                 <div className="block lg:hidden col-span-12 order-2">
                     <div className="w-full aspect-[2/1]">
@@ -33,6 +33,7 @@ export default async function BenefitPage({params:{slug}}:any) {
                 </div>
                 <div className="col-span-12 md:col-span-6 order-2 md:order-1">
                     <div className="rounded-xl w-full text-black">
+                        <h1 className="h-16 text-2xl font-bold text-black">{company.name}</h1>
                         <p>{company.description}</p>
                         <div className="flex gap-4 items-center mt-4">
                             {(company.phone || company.website || company.socialMedia?.facebook || company.socialMedia?.instagram || company.socialMedia?.x) && <p className="font-bold">Información de contacto</p>}
