@@ -1,4 +1,5 @@
 import { cert, getApps, initializeApp } from "firebase-admin/app";
+import { getAuth } from "firebase-admin/auth";
 
 export const firebaseApp =
   getApps().find((it) => it.name === "firebase-admin-app") ||
@@ -8,3 +9,5 @@ export const firebaseApp =
     },
     "firebase-admin-app"
   );
+
+  export const adminAuth = getAuth(firebaseApp);

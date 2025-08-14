@@ -31,7 +31,7 @@ export default function SwiperCategories({categories}: {categories: any[]}) {
             {categories.map((category) => (
               <SwiperSlide key={category.id}>
                 <div >
-                  <Link className="flex flex-col items-center" href={`/benefits?${encodeURIComponent(`companies[refinementList][categories][0]`)}=${encodeURIComponent(`categories/${category.id}`)}`}>
+                  <Link className="flex flex-col items-center gap-2" href={`/benefits?${encodeURIComponent(`companies[refinementList][categories][0]`)}=${encodeURIComponent(`categories/${category.id}`)}`}>
                     <div className="flex flex-col items-center justify-center gap-2 bg-white p-4 rounded-full aspect-square">
                       <Image src={category.icon || ""} alt={category.name} width={100} height={100}/>
                     </div>
