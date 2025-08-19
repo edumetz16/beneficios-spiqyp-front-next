@@ -2,9 +2,8 @@ import "server-only";
 
 import { cookies } from "next/headers";
 
-import { initializeApp, getApps, cert } from "firebase-admin/app";
-import { SessionCookieOptions, getAuth } from "firebase-admin/auth";
-import { adminAuth, firebaseApp } from "../firebase/firebase";
+import { SessionCookieOptions } from "firebase-admin/auth";
+import { adminAuth } from "../firebase/firebase";
 import sheetsDatabase from "../firestore/sheetsDatabase";
 import { CreateUserRequestAdditionalValidation } from "@/app/api/auth/[action]/route";
 import { NextRequest } from "next/server";

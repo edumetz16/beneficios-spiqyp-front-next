@@ -8,7 +8,6 @@ import {
 import {getOrInitializeAppCheck} from '../app-check/app-check.service';
 
 export const getFirebaseApp = () => {
-  console.log(getApps())
   if (getApps().length > 0) {
     return getApp("firebase-client");
   }

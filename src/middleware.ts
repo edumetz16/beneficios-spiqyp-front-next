@@ -47,7 +47,6 @@ export async function middleware(request: NextRequest) {
       });
     },
     handleInvalidToken: async (reason) => {
-      console.log('Invalid token:', reason);
       return redirectToLogin(request, {
         path: '/login',
         publicPaths: PUBLIC_PATHS
