@@ -1,5 +1,5 @@
-import { getAuth } from "firebase-admin/auth";
 import { db } from "@/services/firestore/firestore";
+import { adminAuth } from "@/services/firebase/firebase";
 
 export const POST = async (request: Request) => {
   try {
@@ -21,8 +21,7 @@ export const POST = async (request: Request) => {
       hasAccount: true,
     });
     // Create Auth user with Firestore doc ID as UID
-    const auth = getAuth();
-    const authUser = await auth.createUser({
+    const authUser = await adminAuth.createUser({
       uid: userId,
       email: data.email,
       password: data.password,
